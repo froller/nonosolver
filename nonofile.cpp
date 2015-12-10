@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-NonoFile::NonoFile(const unsigned char &width, const unsigned char &height, const std::vector<std::vector<unsigned char>> &strips)
+NonoFile::NonoFile(const size_t &width, const size_t &height, const std::vector<std::vector<unsigned char>> &strips)
 //    : m_Width(width), m_Height(height), m_Strips(strips)
 {
     this->m_Width = width;
@@ -32,15 +32,18 @@ int NonoFile::load(const char* filename)
         fclose(file);
         return 1;
     }
+    std::vector<unsigned char> strip;
     while (!feof(file))
     {
         size_t read = fread(buffer, sizeof(unsigned char), BUFSIZ, file);
         for (size_t i = 0; i < read; ++i) {
-            std::vector<unsigned char> strip;
             if (buffer[i])
                 strip.push_back(buffer[i]);
             else
+            {
                 m_Strips.push_back(std::move(strip));
+                strip.clear();
+            }
         }
     }
     free(buffer);
