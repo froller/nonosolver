@@ -5,6 +5,7 @@
 #include "nonofile.h"
 #include "raster.h"
 #include "solver.h"
+#include "display.h"
 
 void error(const char *);
 void dump(Nonogram *);
@@ -16,11 +17,13 @@ int main(int argc, char *argv[])
         error("No filename specified");
     }
     NonoFile nonogram(argv[1]);
-//    printf("Nonogram %dx%d loaded\n", nonogram.getWidth(), nonogram.getHeight());
-//    dump(&nonogram);
+    printf("Nonograbuim %dx%d loaded\n", nonogram.getWidth(), nonogram.getHeight());
+    dump(&nonogram);
     Raster raster(nonogram.getWidth(), nonogram.getHeight());
     Solver solver(&nonogram, &raster);
     solver.solve();
+    Display display;
+    display.show(nonogram, raster);
 }
 
 void error(const char *string)

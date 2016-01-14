@@ -38,3 +38,15 @@ bool Solver::analyzeLine(eLine type, unsigned int idx)
     
     return changed;
 }
+
+bool Solver::findPersistantPixels(std::vector<char>& line, std::vector<unsigned char>& strips)
+{
+    std::vector<char> leftmost;
+    std::vector<char> rightmost;
+    leftmost.reserve(line.size());
+    rightmost.reserve(line.size());
+
+    std::vector<char>::iterator p;
+    
+}
+
