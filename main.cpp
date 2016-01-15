@@ -17,13 +17,12 @@ int main(int argc, char *argv[])
         error("No filename specified");
     }
     NonoFile nonogram(argv[1]);
-    printf("Nonograbuim %dx%d loaded\n", nonogram.getWidth(), nonogram.getHeight());
-    dump(&nonogram);
+    printf("Nonogram %dx%d loaded\n", nonogram.getWidth(), nonogram.getHeight());
     Raster raster(nonogram.getWidth(), nonogram.getHeight());
     Solver solver(&nonogram, &raster);
     solver.solve();
-    Display display;
-    display.show(nonogram, raster);
+    Display display(&nonogram, &raster);
+    display.show();
 }
 
 void error(const char *string)

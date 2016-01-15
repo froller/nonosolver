@@ -7,16 +7,16 @@
 class Nonogram
 {
 protected:
-    size_t m_Width;
-    size_t m_Height;
+    int m_Width;
+    int m_Height;
     std::vector<std::vector<unsigned char>> m_Strips;
 public:
     Nonogram();
-    Nonogram(const size_t &width, const size_t &height, const std::vector<std::vector<unsigned char>> &strips);
-    std::vector<unsigned char> getRowStrips(unsigned int row);
-    std::vector<unsigned char> getColStrips(unsigned int col);
-    size_t getWidth();
-    size_t getHeight();
+    Nonogram(const int &width, const int &height, const std::vector<std::vector<unsigned char>> &strips);
+    std::vector<unsigned char> getRowStrips(unsigned int row) const;
+    std::vector<unsigned char> getColStrips(unsigned int col) const;
+    int getWidth() const;
+    int getHeight() const;
     void zero();
 };
 

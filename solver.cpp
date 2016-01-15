@@ -46,7 +46,7 @@ bool Solver::findPersistantPixels(std::vector<char>& line, std::vector<unsigned 
     leftmost.reserve(line.size());
     rightmost.reserve(line.size());
 
-    std::vector<char>::iterator p;
+    
     
 }
 

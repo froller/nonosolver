@@ -14,12 +14,13 @@ public:
     Raster();
     Raster(const size_t width, const size_t height);
     ~Raster();
-    char getPixel(const unsigned int x, const unsigned int y);
+    char getPixel(const unsigned int x, const unsigned int y) const;
     void setPixel(const unsigned int x, const unsigned int y, char p);
-    std::vector<char> getCol(unsigned int x);
-    std::vector<char> getRow(unsigned int y);
+    std::vector<char> getCol(unsigned int x) const;
+    std::vector<char> getRow(unsigned int y) const;
+    void clear();
 private:
-    unsigned int pixelIndex(const unsigned int x, const unsigned int y);
+    unsigned int pixelIndex(const unsigned int x, const unsigned int y) const;
 };
 
 #endif // __RASTER_H__
