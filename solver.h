@@ -16,6 +16,7 @@ class Solver
     bool analyzeLine(eLine type, unsigned int idx);
     //bool analyze(std::vector<unsigned char> strips, std::vector<char> line);
     bool findPersistantPixels(std::vector<char> &line, std::vector<unsigned char> &strips);
+    bool copyLineToRaster(eLine type, unsigned int idx, std::vector<char> &line);
 public:
     Solver(Nonogram *nonogram, Raster *raster);
     void solve();

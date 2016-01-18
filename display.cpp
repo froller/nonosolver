@@ -48,15 +48,14 @@ void Display::show() const
         for (int x = 0; x < m_Nonogram->getWidth(); x++)
         {
             switch (m_Raster->getPixel(x, y)) {
-                case  1:
-                    printf("\033[1;48m  \033[0m");
-                    break;
                 case  0:
-                    printf("\033[0;47m  \033[0m");
+                    printf("\033[0;30;47m +\033[0m");
                     break;
                 case -1:
-                    printf("\033[1;30m><\033[0m");
+                    printf("\033[0;30;47m><\033[0m");
                     break;
+                default:
+                    printf("\033[1;37;40m%2i\033[0m", m_Raster->getPixel(x, y));
             }
         }
         printf("\n");
