@@ -23,6 +23,9 @@ int main(int argc, char *argv[])
     solver.solve();
     Display display(&nonogram, &raster);
     display.show();
+#if defined(_WIN32)
+    getc(stdin);
+#endif
 }
 
 void error(const char *string)

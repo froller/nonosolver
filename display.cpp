@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <algorithm>
+
+#if defined(_WIN32)
+#   define NOMINMAX
+#   include <windows.h>
+#endif
 
 Display::Display(Nonogram *nonogram, Raster *raster): m_Nonogram(nonogram), m_Raster(raster)
 {
@@ -49,13 +55,25 @@ void Display::show() const
         {
             switch (m_Raster->getPixel(x, y)) {
                 case  0:
+#if defined(_WIN32)
+                    printf(" +");
+#else
                     printf("\033[0;30;47m +\033[0m");
+#endif
                     break;
                 case -1:
+#if defined(_WIN32)
+                    printf("><");
+#else
                     printf("\033[0;30;47m><\033[0m");
+#endif
                     break;
                 default:
+#if defined(_WIN32)
+                    printf("%2i", m_Raster->getPixel(x, y));
+#else
                     printf("\033[1;37;40m%2i\033[0m", m_Raster->getPixel(x, y));
+#endif
             }
         }
         printf("\n");
@@ -64,11 +82,28 @@ void Display::show() const
 
 void Display::clearScreen()
 {
+#if defined(_WIN32)
+    COORD tl = { 0,0 };
+    CONSOLE_SCREEN_BUFFER_INFO s;
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleScreenBufferInfo(console, &s);
+    DWORD written, cells = s.dwSize.X * s.dwSize.Y;
+    FillConsoleOutputCharacter(console, ' ', cells, tl, &written);
+    FillConsoleOutputAttribute(console, s.wAttributes, cells, tl, &written);
+    SetConsoleCursorPosition(console, tl);
+#else
     printf("\033[2J");
+#endif
 }
 
 void Display::setCursor(unsigned int x, unsigned int y)
 {
+#if defined(_WIN32)
+    COORD tl = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleCursorPosition(console, tl);
+#else
     printf("\033[%u;%uH", y + 1, x + 1);
+#endif
 }
 
