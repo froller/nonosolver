@@ -18,10 +18,22 @@ int main(int argc, char *argv[])
     NonoFile nonogram(argv[1]);
     printf("Nonogram %dx%d loaded\n", nonogram.getWidth(), nonogram.getHeight());
     Raster raster(nonogram.getWidth(), nonogram.getHeight());
-    Solver solver(&nonogram, &raster);
-    solver.solve();
     Display display(&nonogram, &raster);
-    display.show();
+    Solver solver(&nonogram, &raster);
+    
+    bool solveColumns = true;
+    bool changed;
+    do {
+        changed = false;
+        if (solveColumns)
+            changed |= solver.solveCols();
+        else
+            changed |= solver.solveRows();
+        solveColumns = !solveColumns;
+        display.show();
+        getc(stdin);
+    }
+    while (changed);
 #if defined(_WIN32)
     getc(stdin);
 #endif

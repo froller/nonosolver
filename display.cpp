@@ -30,15 +30,15 @@ void Display::show() const
     
     for (int y = topField; y > 0; --y)
     {
-        puts(leftSpacer);
+        printf(leftSpacer);
         for (unsigned int x = 0; x < m_Nonogram->getWidth(); x++)
         {
             if (m_Nonogram->getColStrips(x).size() >= static_cast<unsigned short>(y))
                 printf("%2u", m_Nonogram->getColStrips(x)[m_Nonogram->getColStrips(x).size() - y]);
             else
-                puts("  ");
+                printf("  ");
         }
-        puts("\n");
+        printf("\n");
     }
     
     for (unsigned int y = 0; y < m_Nonogram->getHeight(); y++)
@@ -48,7 +48,7 @@ void Display::show() const
             if (m_Nonogram->getRowStrips(y).size() >= x)
                 printf("%2u", m_Nonogram->getRowStrips(y)[m_Nonogram->getRowStrips(y).size() - x]);
             else
-                puts("  ");
+                printf("  ");
                 
         }
         for (int x = 0; x < m_Nonogram->getWidth(); x++)
@@ -56,16 +56,16 @@ void Display::show() const
             switch (m_Raster->getPixel(x, y)) {
                 case  0:
 #if defined(_WIN32)
-                    puts(" +");
+                    printf("  ");
 #else
-                    puts("\033[0;30;47m +\033[0m");
+                    printf("\033[0;30;47m  \033[0m");
 #endif
                     break;
                 case -1:
 #if defined(_WIN32)
-                    puts("><");
+                    printf("><");
 #else
-                    puts("\033[0;30;47m><\033[0m");
+                    printf("\033[0;30;47m><\033[0m");
 #endif
                     break;
                 default:
@@ -76,7 +76,7 @@ void Display::show() const
 #endif
             }
         }
-        puts("\n");
+        printf("\n");
     }
 }
 
