@@ -1,6 +1,7 @@
 #include "nonofile.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <algorithm>
 
 NonoFile::NonoFile(const unsigned short width, const unsigned short height, const std::vector<std::vector<unsigned short>> &strips)
 //    : m_Width(width), m_Height(height), m_Strips(strips)
@@ -17,7 +18,7 @@ NonoFile::NonoFile(const std::filesystem::path &path)
 
 int NonoFile::load(const std::filesystem::path &path)
 {
-    FILE *file = fopen(path.c_str(), "r");
+    FILE *file = fopen(path.c_str(), "rb");
     if (!file)
         return 1;
     zero();
@@ -57,5 +58,35 @@ int NonoFile::load(const std::filesystem::path &path)
     }
     free(buffer);
     fclose(file);
+    return 0;
+}
+
+int NonoFile::save (const std::filesystem::path& path)
+{
+    size_t bufferSize = 2;
+    std::for_each(m_Strips.begin(), m_Strips.end(), [&bufferSize](std::vector<unsigned short> strip) {
+        bufferSize += strip.size() + 1;
+    });
+    unsigned short *buffer = static_cast<unsigned short *>(malloc(sizeof(unsigned short) * bufferSize));
+    buffer[0] = m_Width;
+    buffer[1] = m_Height;
+    unsigned short *bufferTop = buffer + 2;
+    std::for_each(m_Strips.begin(), m_Strips.end(), [&bufferTop](std::vector<unsigned short> strip) {
+        std::for_each(strip.begin(), strip.end(), [&bufferTop](unsigned short v) {
+            *(bufferTop++) = v;
+        });
+        *(bufferTop++) = 0;
+    });
+    FILE *file = fopen(path.c_str(), "wb+");
+    if (!file)
+        return 1;
+    if (fwrite(buffer, sizeof(unsigned short), bufferSize, file) != sizeof(unsigned short) * bufferSize)
+    {
+        fclose(file);
+        free(buffer);
+        return 1;
+    }
+    fclose(file);
+    free(buffer);
     return 0;
 }

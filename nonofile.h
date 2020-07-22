@@ -10,7 +10,7 @@ public:
     NonoFile(const unsigned short width, const unsigned short height, const std::vector<std::vector<unsigned short>> &strips);
     NonoFile(const std::filesystem::path &path);
     virtual int load(const std::filesystem::path &path);
-//    virtual int save(const char *filename) = 0;
+    virtual int save(const std::filesystem::path &path);
 };
 
 #endif // __NONOFILE_H__
