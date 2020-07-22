@@ -12,7 +12,7 @@
 Display::Display(Nonogram *nonogram, Raster *raster): m_Nonogram(nonogram), m_Raster(raster)
 {
     clearScreen();
-};
+}
 
 void Display::show() const
 {
@@ -30,25 +30,25 @@ void Display::show() const
     
     for (int y = topField; y > 0; --y)
     {
-        printf(leftSpacer);
-        for (int x = 0; x < m_Nonogram->getWidth(); x++)
+        puts(leftSpacer);
+        for (unsigned int x = 0; x < m_Nonogram->getWidth(); x++)
         {
-            if (m_Nonogram->getColStrips(x).size() >= y)
+            if (m_Nonogram->getColStrips(x).size() >= static_cast<unsigned short>(y))
                 printf("%2u", m_Nonogram->getColStrips(x)[m_Nonogram->getColStrips(x).size() - y]);
             else
-                printf("  ");
+                puts("  ");
         }
-        printf("\n");
+        puts("\n");
     }
     
-    for (int y = 0; y < m_Nonogram->getHeight(); y++)
+    for (unsigned int y = 0; y < m_Nonogram->getHeight(); y++)
     {
-        for (int x = leftField; x > 0; --x)
+        for (unsigned int x = leftField; x > 0; --x)
         {
             if (m_Nonogram->getRowStrips(y).size() >= x)
                 printf("%2u", m_Nonogram->getRowStrips(y)[m_Nonogram->getRowStrips(y).size() - x]);
             else
-                printf("  ");
+                puts("  ");
                 
         }
         for (int x = 0; x < m_Nonogram->getWidth(); x++)
@@ -56,16 +56,16 @@ void Display::show() const
             switch (m_Raster->getPixel(x, y)) {
                 case  0:
 #if defined(_WIN32)
-                    printf(" +");
+                    puts(" +");
 #else
-                    printf("\033[0;30;47m +\033[0m");
+                    puts("\033[0;30;47m +\033[0m");
 #endif
                     break;
                 case -1:
 #if defined(_WIN32)
-                    printf("><");
+                    puts("><");
 #else
-                    printf("\033[0;30;47m><\033[0m");
+                    puts("\033[0;30;47m><\033[0m");
 #endif
                     break;
                 default:
@@ -76,9 +76,9 @@ void Display::show() const
 #endif
             }
         }
-        printf("\n");
+        puts("\n");
     }
-};
+}
 
 void Display::clearScreen()
 {
@@ -92,7 +92,7 @@ void Display::clearScreen()
     FillConsoleOutputAttribute(console, s.wAttributes, cells, tl, &written);
     SetConsoleCursorPosition(console, tl);
 #else
-    printf("\033[2J");
+    puts("\033[2J");
 #endif
 }
 

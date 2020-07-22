@@ -1,7 +1,7 @@
 project(nonosolver)
 
-set(CMAKE_C_FLAGS "-std=c11")
-set(CMAKE_CXX_FLAGS "-std=c++11 -fno-exceptions")
+set(CMAKE_C_FLAGS "-std=c11 -Wpedantic -Wall -Wno-unused-but-set-variable -Wnarrowing")
+set(CMAKE_CXX_FLAGS "-std=c++17 -fno-exceptions -Wpedantic -Wall -Wno-unused-but-set-variable -Wnarrowing")
 
 set(SOURCES
     display.h

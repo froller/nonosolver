@@ -6,13 +6,13 @@ Nonogram::Nonogram()
 
 }
 
-Nonogram::Nonogram(const int &width, const int &height, const std::vector<std::vector<unsigned char>> &strips)
+Nonogram::Nonogram(const unsigned short &width, const unsigned short &height, const std::vector<std::vector<unsigned short>> &strips)
     : m_Width(width), m_Height(height), m_Strips(strips)
 {
         
 }
 
-std::vector<unsigned char> Nonogram::getRowStrips(unsigned int row) const
+std::vector<unsigned short> Nonogram::getRowStrips(unsigned short row) const
 {
     if (row < m_Height)
         return m_Strips[row];
@@ -20,7 +20,7 @@ std::vector<unsigned char> Nonogram::getRowStrips(unsigned int row) const
         return {};
 }
 
-std::vector<unsigned char> Nonogram::getColStrips(unsigned int col) const
+std::vector<unsigned short> Nonogram::getColStrips(unsigned short col) const
 {
     if (col < m_Width)
         return m_Strips[m_Height + col];
@@ -28,12 +28,12 @@ std::vector<unsigned char> Nonogram::getColStrips(unsigned int col) const
         return {};
 }
 
-int Nonogram::getWidth() const
+unsigned short Nonogram::getWidth() const
 {
     return m_Width;
 }
 
-int Nonogram::getHeight() const
+unsigned short Nonogram::getHeight() const
 {
     return m_Height;
 }

@@ -2,13 +2,14 @@
 #define __NONOFILE_H__
 
 #include "nonogram.h"
+#include <filesystem>
 
 class NonoFile: public Nonogram
 {
 public:
-    NonoFile(const size_t &width, const size_t &height, const std::vector<std::vector<unsigned char>> &strips);
-    NonoFile(const char *filename);
-    virtual int load(const char *filename);
+    NonoFile(const unsigned short width, const unsigned short height, const std::vector<std::vector<unsigned short>> &strips);
+    NonoFile(const std::filesystem::path &path);
+    virtual int load(const std::filesystem::path &path);
 //    virtual int save(const char *filename) = 0;
 };
 

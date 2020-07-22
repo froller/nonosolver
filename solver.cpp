@@ -17,11 +17,11 @@ void Solver::solve()
 
 }
 
-bool Solver::analyzeLine(eLine type, unsigned int idx)
+bool Solver::analyzeLine(const eLine type, const unsigned short idx)
 {
     bool changed = false;
     std::vector<char> line;
-    std::vector<unsigned char> strips;
+    std::vector<unsigned short> strips;
     unsigned int x, y;
     switch (type)
     {
@@ -47,7 +47,7 @@ bool Solver::analyzeLine(eLine type, unsigned int idx)
     return changed;
 }
 
-bool Solver::findPersistantPixels(std::vector<char>& line, std::vector<unsigned char>& strips)
+bool Solver::findPersistantPixels(std::vector<char>& line, std::vector<unsigned short>& strips)
 {
     std::vector<char> leftmost(line.size());
     std::vector<char> rightmost(line.size());
@@ -55,7 +55,7 @@ bool Solver::findPersistantPixels(std::vector<char>& line, std::vector<unsigned 
     int pos;
    
     pos = 0;
-    for (int i = 0; i < strips.size(); i++)
+    for (unsigned int i = 0; i < strips.size(); i++)
     {
         for (int j = 0; j < strips[i]; j++)
         {
@@ -73,7 +73,7 @@ bool Solver::findPersistantPixels(std::vector<char>& line, std::vector<unsigned 
     }
 
     bool changed = false;
-    for (int i = 0; i < line.size(); i++)
+    for (unsigned int i = 0; i < line.size(); i++)
         if (leftmost[i] && leftmost[i] == rightmost[i])
         {
             line[i] = leftmost[i];
@@ -82,10 +82,10 @@ bool Solver::findPersistantPixels(std::vector<char>& line, std::vector<unsigned 
     return changed;
 }
 
-bool Solver::copyLineToRaster(eLine type, unsigned int idx, std::vector<char> &line)
+bool Solver::copyLineToRaster(const eLine type, const unsigned short idx, std::vector<char> &line)
 {
     bool changed = false;
-    for (int i = 0; i < line.size(); i++)
+    for (unsigned int i = 0; i < line.size(); i++)
         if (line[i])
         {
             if (type == eLine_Column)

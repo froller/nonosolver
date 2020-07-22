@@ -13,10 +13,10 @@ class Solver
 {
     Nonogram *m_Nonogram;
     Raster *m_Raster;
-    bool analyzeLine(eLine type, unsigned int idx);
+    bool analyzeLine(const eLine type, const unsigned short idx);
     //bool analyze(std::vector<unsigned char> strips, std::vector<char> line);
-    bool findPersistantPixels(std::vector<char> &line, std::vector<unsigned char> &strips);
-    bool copyLineToRaster(eLine type, unsigned int idx, std::vector<char> &line);
+    bool findPersistantPixels(std::vector<char> &line, std::vector<unsigned short> &strips);
+    bool copyLineToRaster(const eLine type, const unsigned short idx, std::vector<char> &line);
 public:
     Solver(Nonogram *nonogram, Raster *raster);
     void solve();

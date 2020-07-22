@@ -13,9 +13,8 @@ void dump(Nonogram *);
 int main(int argc, char *argv[])
 {
     if (argc < 2)
-    {
         error("No filename specified");
-    }
+
     NonoFile nonogram(argv[1]);
     printf("Nonogram %dx%d loaded\n", nonogram.getWidth(), nonogram.getHeight());
     Raster raster(nonogram.getWidth(), nonogram.getHeight());
@@ -30,19 +29,19 @@ int main(int argc, char *argv[])
 
 void error(const char *string)
 {
-    fprintf(stderr, "Error: %s\n");
+    fprintf(stderr, "Error: %s\n", string);
     exit(1);
 }
 
 void dump(Nonogram *nonogram)
 {
-    std::vector<unsigned char>::iterator i;
+    std::vector<unsigned short>::iterator i;
     
     printf("Cols:\n");
     for (size_t x = 0; x < nonogram->getWidth(); x++)
     {
-        printf("%2d: ", nonogram->getColStrips(x).size());
-        std::vector<unsigned char> strip = nonogram->getColStrips(x);
+        printf("%2zu: ", nonogram->getColStrips(x).size());
+        std::vector<unsigned short> strip = nonogram->getColStrips(x);
         for (i = strip.begin(); i != strip.end(); i++)
             printf("%2d ", *i);
         printf("\n");
@@ -51,8 +50,8 @@ void dump(Nonogram *nonogram)
     printf("Rows:\n");
     for (size_t y = 0; y < nonogram->getHeight(); y++)
     {
-        printf("%2d: ", nonogram->getRowStrips(y).size());
-        std::vector<unsigned char> strip = nonogram->getRowStrips(y);
+        printf("%2zu: ", nonogram->getRowStrips(y).size());
+        std::vector<unsigned short> strip = nonogram->getRowStrips(y);
         for (i = strip.begin(); i != strip.end(); i++)
             printf("%2d ", *i);
         printf("\n");
