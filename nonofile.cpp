@@ -18,7 +18,7 @@ NonoFile::NonoFile(const std::filesystem::path &path)
 
 int NonoFile::load(const std::filesystem::path &path)
 {
-    FILE *file = fopen(path.c_str(), "rb");
+    FILE *file = fopen(path.string().c_str(), "rb");
     if (!file)
         return 1;
     zero();
@@ -77,7 +77,7 @@ int NonoFile::save (const std::filesystem::path& path)
         });
         *(bufferTop++) = 0;
     });
-    FILE *file = fopen(path.c_str(), "wb+");
+    FILE *file = fopen(path.string().c_str(), "wb+");
     if (!file)
         return 1;
     if (fwrite(buffer, sizeof(unsigned short), bufferSize, file) != sizeof(unsigned short) * bufferSize)

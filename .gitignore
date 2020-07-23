@@ -1,3 +1,6 @@
 .kdev4/
 *.kdev4
+*.sln
+*.vcxproj
+*.vcxproj.*
 build/
