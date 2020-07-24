@@ -17,7 +17,8 @@ class Solver
     //bool analyze(std::vector<unsigned char> strips, std::vector<char> line);
     bool findPersistantPixels(std::vector<char> &line, std::vector<unsigned short> &strips);
     bool findUnreachablePixels(std::vector<char> &line, std::vector<unsigned short> &strips);
-    bool copyLineToRaster(const eLine type, const unsigned short idx, std::vector<char> &line);
+    bool saveLineToRaster(const eLine type, const unsigned short idx, std::vector<char> &line);
+    std::vector<char> loadLineFromRaster(const eLine type, const unsigned short idx);
 public:
     Solver(Nonogram *nonogram, Raster *raster);
     bool solve();

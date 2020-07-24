@@ -58,7 +58,7 @@ bool Solver::analyzeLine(const eLine type, const unsigned short idx)
     
     // TODO: Find and mark bound pixels
     
-    copyLineToRaster(type, idx, line);
+    saveLineToRaster(type, idx, line);
     return changed;
 }
 
@@ -137,10 +137,10 @@ bool Solver::findUnreachablePixels (std::vector<char>& line, std::vector<unsigne
 }
 
 
-bool Solver::copyLineToRaster(const eLine type, const unsigned short idx, std::vector<char> &line)
+bool Solver::saveLineToRaster(const eLine type, const unsigned short idx, std::vector<char> &line)
 {
     bool changed = false;
-    for (unsigned int i = 0; i < line.size(); i++)
+    for (unsigned short i = 0; i < line.size(); ++i)
         if (line[i])
         {
             if (type == eLine_Column)
@@ -150,4 +150,20 @@ bool Solver::copyLineToRaster(const eLine type, const unsigned short idx, std::v
             changed = true;
         }
     return changed;
+}
+
+std::vector<char> Solver::loadLineFromRaster(const eLine type, const unsigned short idx)
+{
+    std::vector<char> line;
+    if (type == eLine_Column)
+        line.reserve(m_Nonogram->getHeight());
+    else
+        line.reserve(m_Nonogram->getWidth());
+
+    for (unsigned short i = 0; i < line.capacity(); ++i)
+        if (type == eLine_Column)
+            line[i] = m_Raster->getPixel(idx, i);
+        else
+            line[i] = m_Raster->getPixel(i, idx);
+    return std::move(line);
 }

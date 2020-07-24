@@ -24,12 +24,12 @@ char Raster::getPixel(const unsigned int x, const unsigned int y) const
     return m_Raster[pixelIndex(x, y)];
 }
 
-void Raster::setPixel(const unsigned int x, const unsigned int y, char p)
+void Raster::setPixel(const unsigned short x, const unsigned short y, char p)
 {
     m_Raster[pixelIndex(x, y)] = p;
 }
 
-unsigned int Raster::pixelIndex(const unsigned int x, const unsigned int y) const
+unsigned int Raster::pixelIndex(const unsigned short x, const unsigned short y) const
 {
     return y * m_Width + x;
 }
